@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:api_cubit/src/helper/storage_helper.dart';
+import 'package:api_cubit/src/helper/storage_keys.dart';
+import 'package:api_cubit/src/models/user_data.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,18 +12,30 @@ import 'authentication_repository.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationRepository _repository = AuthenticationRepository();
+ final AuthenticationRepository _repository = AuthenticationRepository();
 
   AuthenticationCubit() : super(AuthenticationInitial());
 
-  login(String email,String password) async{
+  login(String email, String password) async {
     emit(AuthenticationLoading());
-    ApiResponseModel response = await _repository.login(email, password);
-    if(response.status){
-      emit(AuthenticationSuccess());
-    }else{
-      emit(AuthenticationFailure());
+    try {
+      ApiResponseModel response = await _repository.login(email, password);
+      if (response.status) {
+        // Store token and the user data
+        UserData userData =
+            UserData.fromJson(response.data); // convert map into object
+        await StorageHelper.writeData(StorageKeys.jwt.name, response.token!);
+        await StorageHelper.writeData(
+            StorageKeys.userData.name,
+            jsonEncode(userData
+                .toJson())); // object --> keyValuePair --> jsonObjectString
+        emit(AuthenticationSuccess());
+      } else {
+        String errorMessage = response.error!;
+        emit(AuthenticationFailure(errorMessage));
+      }
+    } catch (ex) {
+      emit(const AuthenticationFailure("Something went wrong"));
     }
   }
-
 }

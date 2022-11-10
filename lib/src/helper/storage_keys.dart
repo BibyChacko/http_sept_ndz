@@ -1,6 +1,7 @@
 
 enum StorageKeys {
-  jwt
+  jwt,
+  userData,
 }
 
 // UI --> cubit --> repository --> server

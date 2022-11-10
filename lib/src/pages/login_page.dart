@@ -1,7 +1,10 @@
 
 import 'package:api_cubit/src/cubit/authentication/authentication_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,10 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextFormField(
               controller: _emailController,
-              validator: DataValidator.isValidEmail,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.email_outlined),
@@ -67,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextFormField(
               controller: _passwordController,
-              validator: DataValidator.isValidPassword,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -109,30 +108,31 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) => HomePage()));
                 }else if(state is AuthenticationFailure){
+                  String errorMessage = state.errorMessage;
                   showDialog(context: context,builder:(_,){
                     return AlertDialog(
-                      title: Text("Login Failed"),
-                      content: Text("Check your credentials"),
+                      title: const Text("Login Failed"),
+                      content:  Text(errorMessage),
                       actions: [
                         TextButton(onPressed: (){
                           Navigator.pop(context);
-                        }, child: Text("Ok"))
+                        }, child: const Text("Ok"))
                       ],
                     );
                   });
                 }
               },
               builder: (context, state) {
-                if (state is AuthLoading) {
-                  return Center(child: CupertinoActivityIndicator());
+                if (state is AuthenticationLoading) {
+                  return const Center(child: CupertinoActivityIndicator());
                 }
                 return ElevatedButton(
                     onPressed: () {
-                      context.read<Auth>().login(
+                      context.read<AuthenticationCubit>().login(
                           _emailController.text.trim(),
                           _passwordController.text);
                     },
-                    child: Text("Login"));
+                    child: const Text("Login"));
               },
             ),
           ],

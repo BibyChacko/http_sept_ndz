@@ -9,12 +9,10 @@ class AuthenticationInitial extends AuthenticationState {
   List<Object> get props => [];
 }
 
-
 class AuthenticationLoading extends AuthenticationState {
   @override
   List<Object> get props => [];
 }
-
 
 class AuthenticationSuccess extends AuthenticationState {
   @override
@@ -22,7 +20,9 @@ class AuthenticationSuccess extends AuthenticationState {
 }
 
 class AuthenticationFailure extends AuthenticationState {
-  @override
-  List<Object> get props => [];
-}
+  final String errorMessage;
+  const AuthenticationFailure(this.errorMessage);
 
+  @override
+  List<Object> get props => [errorMessage];
+}
