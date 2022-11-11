@@ -1,6 +1,7 @@
 import 'package:api_cubit/src/cubit/category/category_cubit.dart';
 import 'package:api_cubit/src/models/category_model.dart';
 import 'package:api_cubit/src/pages/add_new_category.dart';
+import 'package:api_cubit/src/pages/edit_category_page.dart';
 import 'package:api_cubit/src/widgets/app_load_error_widget.dart';
 import 'package:api_cubit/src/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,11 @@ class _CategoryPageState extends State<CategoryPage> {
                               children: [
                                 IconButton(
                                     onPressed: () {
-                                      // TODO : Navigate to an edit page
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (_) => EditCategoryPage(
+                                                  categoryModel:
+                                                      categoryModel)));
                                     },
                                     icon: const Icon(Icons.edit)),
                                 const SizedBox(
