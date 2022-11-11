@@ -1,4 +1,3 @@
-
 import 'package:api_cubit/src/cubit/authentication/authentication_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +13,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController(
+      text: "@dminPlus2020#");
+  final TextEditingController _emailController = TextEditingController(
+      text: "admin@docplus.com");
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("json api"),
-        centerTitle: true,
+    return BlocProvider(
+      create: (context) => AuthenticationCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("json api"),
+          centerTitle: true,
+        ),
+        body: SafeArea(child: _buildLoginForm(context)),
       ),
-      body: SafeArea(child: _buildLoginForm(context)),
     );
   }
 
@@ -106,15 +110,16 @@ class _LoginPageState extends State<LoginPage> {
               listener: (context, state) {
                 if (state is AuthenticationSuccess) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                }else if(state is AuthenticationFailure){
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => HomePage()));
+                } else if (state is AuthenticationFailure) {
                   String errorMessage = state.errorMessage;
-                  showDialog(context: context,builder:(_,){
+                  showDialog(context: context, builder: (_,) {
                     return AlertDialog(
                       title: const Text("Login Failed"),
-                      content:  Text(errorMessage),
+                      content: Text(errorMessage),
                       actions: [
-                        TextButton(onPressed: (){
+                        TextButton(onPressed: () {
                           Navigator.pop(context);
                         }, child: const Text("Ok"))
                       ],

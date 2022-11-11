@@ -1,3 +1,4 @@
+import 'package:api_cubit/src/pages/categories_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +15,9 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
           child: Column(
             children: [
-              ElevatedButton(onPressed: (){}, child: Text("Categories")),
+              ElevatedButton(onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CategoryPage()));
+              }, child: Text("Categories")),
               ElevatedButton(onPressed: (){}, child: Text("Subscriptions")),
               ElevatedButton(onPressed: (){}, child: Text("Profile"))
             ],
