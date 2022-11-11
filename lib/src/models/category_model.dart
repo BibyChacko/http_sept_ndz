@@ -1,8 +1,8 @@
 
 class CategoryModel {
   final String? id;
-  final String categoryName;
-  final String categoryCode;
+   String categoryName;
+   String categoryCode;
 
   CategoryModel({this.id,required this.categoryName,required this.categoryCode});
 
@@ -12,6 +12,10 @@ class CategoryModel {
         categoryCode: json["categoryCode"],
         id: json["_id"]
     );
+  }
+
+  setCategoryName(String categoryName){
+    this.categoryName = categoryName;
   }
 
   Map<String,dynamic> toJSON(){
