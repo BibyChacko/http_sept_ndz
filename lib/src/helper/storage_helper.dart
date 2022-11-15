@@ -11,4 +11,9 @@ class StorageHelper {
     String? data = sharedPreferences.getString(key);
     return data;
   }
+
+  static Future<void> clearAllData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+  }
 }

@@ -29,6 +29,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
             StorageKeys.userData.name,
             jsonEncode(userData
                 .toJson())); // object --> keyValuePair --> jsonObjectString
+        await StorageHelper.writeData(StorageKeys.loginTime.name, DateTime.now().toString());
         emit(AuthenticationSuccess());
       } else {
         String errorMessage = response.error!;
@@ -38,4 +39,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(const AuthenticationFailure("Something went wrong"));
     }
   }
+
+
+
+
+  logout() async {
+    emit(AuthenticationLoading());
+    await StorageHelper.clearAllData();
+    emit(AuthenticationInitial());
+    // We have to clear the user data
+  }
+
 }
