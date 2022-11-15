@@ -20,15 +20,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationCubit(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text("json api"),
           centerTitle: true,
         ),
         body: SafeArea(child: _buildLoginForm(context)),
-      ),
     );
   }
 

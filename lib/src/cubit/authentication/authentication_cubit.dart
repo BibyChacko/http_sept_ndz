@@ -41,6 +41,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
 
+  checkAutoLogin() async {
+    emit(AuthenticationLoading());
+    bool isAutoLoginAllowed = await _repository.checkAutoLogin();
+    if(isAutoLoginAllowed){
+      emit(AuthenticationSuccess());
+    }else{
+      emit(AuthenticationInitial());
+    }
+  }
 
 
   logout() async {
