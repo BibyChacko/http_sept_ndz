@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppLoadErrorWidget extends StatelessWidget {
   final String errorMessage;
-  final Function onReload;
+  final Function onButtonTap;
+  final String buttonLabel;
   const AppLoadErrorWidget(
-      {required this.errorMessage, required this.onReload, Key? key})
+      {required this.errorMessage, required this.onButtonTap,this.buttonLabel = "Try Again!",Key? key})
       : super(key: key);
 
   @override
@@ -17,9 +18,9 @@ class AppLoadErrorWidget extends StatelessWidget {
         ),
         OutlinedButton(
             onPressed: () {
-              onReload();
+              onButtonTap();
             },
-            child: const Text("Try Again!"))
+            child:  Text(buttonLabel))
       ],
     );
   }

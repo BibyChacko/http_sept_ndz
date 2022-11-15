@@ -41,6 +41,10 @@ class UserData {
     _v = v;
 }
 
+  String getFullAddress(){
+    return [_addressLine1,addressLine3,_city,_district,_state,_country,_pincode].join(" ");
+  }
+
   UserData.fromJson(dynamic json) {
     _location = json['location'] != null ? Location.fromJson(json['location']) : null;
     _id = json['_id'];

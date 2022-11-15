@@ -4,7 +4,6 @@ import 'package:api_cubit/src/widgets/app_button.dart';
 import 'package:api_cubit/src/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class EditCategoryPage extends StatefulWidget {
   final CategoryModel categoryModel;

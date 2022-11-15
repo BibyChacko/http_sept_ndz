@@ -79,7 +79,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   } else if (state is CategoryLoadError) {
                     return AppLoadErrorWidget(
                       errorMessage: state.errorMessage,
-                      onReload: () {
+                      onButtonTap: () {
                         context.read<CategoryCubit>().getAllCategory();
                       },
                     );

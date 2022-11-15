@@ -1,4 +1,5 @@
 import 'package:api_cubit/src/pages/categories_page.dart';
+import 'package:api_cubit/src/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,9 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CategoryPage()));
               }, child: Text("Categories")),
               ElevatedButton(onPressed: (){}, child: Text("Subscriptions")),
-              ElevatedButton(onPressed: (){}, child: Text("Profile"))
+              ElevatedButton(onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ProfilePage()));
+              }, child: Text("Profile"))
             ],
           )
       ),
